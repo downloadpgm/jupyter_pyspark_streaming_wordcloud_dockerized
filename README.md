@@ -10,7 +10,7 @@ This Docker image contains Spark binaries prebuilt and uploaded in Docker Hub.
 ```shell
 $ git clone https://github.com/mkenjis/apache_binaries
 $ wget https://archive.apache.org/dist/spark/spark-3.0.3/spark-3.0.3-bin-hadoop2.7.tgz
-$ docker image build -t mkenjis/ubpyspk_img
+$ docker image build -t mkenjis/ubpyspk_stream_img
 $ docker login
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
 Username: mkenjis
@@ -20,7 +20,7 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
 Login Succeeded
-$ docker image push mkenjis/ubpyspk_img
+$ docker image push mkenjis/ubpyspk_stream_img
 ```
 
 ## Shell Scripts Inside 
@@ -86,6 +86,10 @@ CONTAINER ID   IMAGE                         COMMAND                  CREATED   
 71717fcd5a01   mkenjis/ubpyspk_img:latest   "/usr/bin/supervisord"   14 minutes ago   Up 14 minutes   4040/tcp, 7077/tcp, 8080-8082/tcp, 10000/tcp   spark_spk_wkr2.1.bf8tsqv5lyfa4h5i8utwvtpch
 464730a41833   mkenjis/ubpyspk_img:latest   "/usr/bin/supervisord"   14 minutes ago   Up 14 minutes   4040/tcp, 7077/tcp, 8080-8082/tcp, 10000/tcp   spark_spk_mst.1.n01a49esutmbgv5uum3tdsm6p
 
+$ docker container cp client_wordcount.py <container ID>:/root
+$ docker container cp listener_twitter.py <container ID>:/root
+$ docker container cp word_cloud_comentado.ipynb <container ID>:/root
+
 $ docker container exec -it <container ID> bash
 ```
 
@@ -111,7 +115,7 @@ Verify password: *********
 
 Run pyspark
 ```shell
-PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --allow-root --port=8082" pyspark --master spark://<hostname>:7077
+PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --allow-root --port=8082" pyspark --master local[*]
 ```
 
 In the browser, issue the address https://host:8082 to access the Jupyter Notebook.
