@@ -118,13 +118,30 @@ Run pyspark
 PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --allow-root --port=8082" pyspark --master local[*]
 ```
 
+Edit and run listener_twitter.py
+```shell
+$ vi listener_twitter.py
+token="<bearer_token>"   # provide your Twitter BEARER_TOKEN
+
+$ python3 listener_twitter.py
+Aguardando conexão na porta: 9009
+```
+
+Run client_wordcount.py
+```shell
+$ PYSPARK_DRIVER_PYTHON=/usr/bin/python3.8
+$ spark-submit client_wordcount.py
+22/09/11 12:17:14 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+22/09/11 12:17:20 WARN TextSocketSourceProvider: The socket source should not be used for production applications! It does not support recovery.
+```
+
 In the browser, issue the address https://host:8082 to access the Jupyter Notebook.
 
 Provide the credentials previously created
 
 ![JUPYTER home](docs/jupyter-login.png)
 
-Click on New button to start a new notebook. Choose Python3 as interpreter
+Click on word_cloud_alterado.ipynb to start the notebook.
 
 ![JUPYTER home](docs/jupyter-python-notebook.png)
 

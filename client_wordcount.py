@@ -8,7 +8,7 @@ tweets = spark.readStream\
     .option("port", 9009) \
     .load()
 
-query = tweets.writeStream \
+query = tweets.coalesce(1).writeStream \
     .outputMode("append") \
     .option("encoding", "utf-8") \
     .format("csv") \
